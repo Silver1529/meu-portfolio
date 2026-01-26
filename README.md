@@ -37,5 +37,9 @@ Desenvolvimento de Landing Pages e Aplicações de Página Única.
 ## 📫 Vamos conversar?
 Estou sempre aberto a novos desafios e parcerias.
 
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat&logo=linkedin&logoColor=white)](SEU_LINK_DO_LINKEDIN_AQUI)
-[![Gmail](https://img.shields.io/badge/-Gmail-c14438?style=flat&logo=gmail&logoColor=white)](mailto:seuemail@exemplo.com)
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat&logo=linkedin&logoColor=white)](Claro! Aqui está o link do seu LinkedIn:
+
+🔗 **LinkedIn:**
+[https://linkedin.com/in/miguel-bahia-30094234b](https://linkedin.com/in/miguel-bahia-30094234b)
+)
+[![Gmail](https://img.shields.io/badge/-Gmail-c14438?style=flat&logo=gmail&logoColor=white)](mailto:miguelbahia0602@gmail.com)
