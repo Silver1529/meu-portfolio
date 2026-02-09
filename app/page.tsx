@@ -26,19 +26,17 @@ export default function Home() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2
+        duration: 0.3
       }
     }
   };
 
   const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    hidden: { opacity: 0, y: 20 },
     visible: { 
       opacity: 1, 
-      y: 0, 
-      scale: 1,
-      transition: { type: "spring", stiffness: 50, damping: 15 }
+      y: 0,
+      transition: { duration: 0.3 }
     }
   };
 
@@ -46,9 +44,9 @@ export default function Home() {
     // REMOVI "bg-zinc-950" PARA O FUNDO ANIMADO APARECER
     <main className="min-h-screen text-zinc-100 selection:bg-green-500/30 relative overflow-hidden">
       
-      {/* Luzes de destaque fixas (Opcional, pois já temos o AnimatedBackground, mas ajuda na leitura) */}
-      <div className="fixed top-0 left-0 w-[500px] h-[500px] bg-green-500/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-      <div className="fixed bottom-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2 pointer-events-none" />
+      {/* Luzes de destaque fixas */}
+      <div className="fixed top-0 left-0 w-[400px] h-[400px] bg-green-500/5 rounded-full blur-[60px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <div className="fixed bottom-0 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[60px] translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
       <motion.div 
         className="max-w-7xl mx-auto p-6 md:p-12 lg:p-20 relative z-10"
@@ -61,10 +59,7 @@ export default function Home() {
         <motion.header variants={cardVariants} className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-medium">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               Disponível para novos projetos
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-zinc-100 via-zinc-400 to-zinc-600">
@@ -86,14 +81,14 @@ export default function Home() {
                 key={idx} 
                 href={social.href} 
                 target="_blank"
-                className="p-4 bg-zinc-900/50 backdrop-blur-md rounded-2xl border border-zinc-800 hover:border-zinc-600 hover:bg-zinc-800 transition-all hover:-translate-y-1 group"
+                className="p-4 bg-zinc-900/70 rounded-2xl border border-zinc-800 hover:border-zinc-600 hover:bg-zinc-800 transition-all hover:-translate-y-1 group"
               >
                 <social.icon className="w-6 h-6 text-zinc-400 group-hover:text-white transition-colors" />
               </Link>
             ))}
             <button 
               onClick={handleCopyEmail}
-              className="p-4 bg-zinc-900/50 backdrop-blur-md rounded-2xl border border-zinc-800 hover:border-zinc-600 hover:bg-zinc-800 transition-all hover:-translate-y-1 group relative"
+              className="p-4 bg-zinc-900/70 rounded-2xl border border-zinc-800 hover:border-zinc-600 hover:bg-zinc-800 transition-all hover:-translate-y-1 group relative"
             >
               {copied ? <Check className="w-6 h-6 text-green-400" /> : <Mail className="w-6 h-6 text-zinc-400 group-hover:text-white" />}
             </button>
@@ -101,7 +96,7 @@ export default function Home() {
         </motion.header>
 
         {/* BENTO GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-4 gap-6">
 
           {/* CARD 1: CRM & CORE SYSTEM (Link para detalhes) */}
           <Link href="/projetos/crm" className="md:col-span-2 md:row-span-2 group cursor-pointer">
@@ -109,7 +104,7 @@ export default function Home() {
               variants={cardVariants}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className="h-full rounded-2rem border border-zinc-800 bg-zinc-900/40 backdrop-blur-sm p-8 flex flex-col justify-between hover:border-blue-500/30 transition-all relative overflow-hidden"
+              className="h-full rounded-2rem border border-zinc-800 bg-zinc-900/60 p-8 flex flex-col justify-between hover:border-blue-500/30 transition-all relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 p-32 bg-blue-500/5 blur-[80px] rounded-full group-hover:bg-blue-500/10 transition-all" />
               
@@ -147,7 +142,7 @@ export default function Home() {
             <motion.div 
               variants={cardVariants}
               whileHover={{ y: -5 }}
-              className="h-full rounded-2rem border border-zinc-800 bg-black/60 backdrop-blur-md p-6 flex flex-col relative overflow-hidden hover:border-green-500/30 transition-all"
+              className="h-full rounded-2rem border border-zinc-800 bg-black/80 p-6 flex flex-col relative overflow-hidden hover:border-green-500/30 transition-all"
             >
               {/* Matrix Rain Effect Placeholder */}
               <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
@@ -185,12 +180,32 @@ export default function Home() {
             </motion.div>
           </Link>
 
-          {/* CARD 3: ECO CALCULATOR */}
+          {/* CARD 3: TIMELINE SYSTEM */}
+          <Link href="/projetos/timeline" className="md:col-span-1 md:row-span-1 group cursor-pointer">
+            <motion.div 
+              variants={cardVariants}
+              whileHover={{ scale: 1.03 }}
+              className="h-full rounded-2rem border border-zinc-800 bg-zinc-900/60 p-6 flex flex-col justify-between hover:bg-zinc-900/70 transition-all hover:border-purple-500/30 relative overflow-hidden"
+            >
+               <div className="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/20 blur-40px rounded-full group-hover:bg-purple-500/30 transition-all"></div>
+               
+               <div className="flex justify-between items-start">
+                  <Server className="text-purple-500" size={28} />
+                  <ArrowUpRight className="text-zinc-600 group-hover:text-purple-400 transition-colors" />
+               </div>
+               <div>
+                 <h3 className="text-lg font-bold mt-4 group-hover:text-purple-400 transition-colors">Timeline Cliente</h3>
+                 <p className="text-zinc-500 text-xs mt-1">Sistema de rastreamento de eventos com 9 tipos de ações e metadata localizada.</p>
+               </div>
+            </motion.div>
+          </Link>
+
+          {/* CARD 4: ECO CALCULATOR */}
           <Link href="https://pegadasecologicas.vercel.app/" target="_blank" className="md:col-span-1 md:row-span-1 group cursor-pointer">
             <motion.div 
               variants={cardVariants}
               whileHover={{ scale: 1.03 }}
-              className="h-full rounded-2rem border border-zinc-800 bg-zinc-900/40 backdrop-blur-sm p-6 flex flex-col justify-between hover:bg-zinc-900/60 transition-all hover:border-emerald-500/30 relative overflow-hidden"
+              className="h-full rounded-2rem border border-zinc-800 bg-zinc-900/60 p-6 flex flex-col justify-between hover:bg-zinc-900/70 transition-all hover:border-emerald-500/30 relative overflow-hidden"
             >
                <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-500/20 blur-40px rounded-full group-hover:bg-emerald-500/30 transition-all"></div>
                
@@ -205,12 +220,12 @@ export default function Home() {
             </motion.div>
           </Link>
 
-          {/* CARD 4: TECH STACK & INFRA (AGORA CLICÁVEL E ATUALIZADO) */}
+          {/* CARD 5: TECH STACK & INFRA (AGORA CLICÁVEL E ATUALIZADO) */}
           <Link href="/projetos/skills" className="md:col-span-2 md:row-span-1 group cursor-pointer">
             <motion.div 
               variants={cardVariants}
               whileHover={{ scale: 1.02 }}
-              className="h-full rounded-2rem border border-zinc-800 bg-zinc-900/40 backdrop-blur-sm p-8 flex flex-col justify-center hover:border-zinc-700 transition-all relative"
+              className="h-full rounded-2rem border border-zinc-800 bg-zinc-900/60 p-8 flex flex-col justify-center hover:border-zinc-700 transition-all relative"
             >
                {/* Seta indicando que é clicável */}
                <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -260,7 +275,7 @@ export default function Home() {
             </motion.div>
           </Link>
 
-          {/* CARD 5: CTA (Action Button) */}
+          {/* CARD 6: CTA (Action Button) */}
           <motion.div 
             variants={cardVariants}
             whileHover={{ scale: 1.02 }}

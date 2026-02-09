@@ -14,7 +14,7 @@ export default function CrmPage() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 }
+      transition: { duration: 0.3 }
     }
   };
 
@@ -23,7 +23,7 @@ export default function CrmPage() {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { type: "spring", stiffness: 50 }
+      transition: { duration: 0.3 }
     }
   };
 
@@ -31,11 +31,8 @@ export default function CrmPage() {
     <main className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-blue-500/30 relative overflow-hidden">
       
       {/* Background Effects (Tema Azul/Roxo) */}
-      <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4 pointer-events-none" />
-      <div className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] -translate-x-1/3 translate-y-1/4 pointer-events-none" />
-      
-      {/* Grid Pattern Overlay */}
-      <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"></div>
+      <div className="fixed top-0 right-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[60px] translate-x-1/3 -translate-y-1/4 pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-purple-600/5 rounded-full blur-[60px] -translate-x-1/3 translate-y-1/4 pointer-events-none" />
 
       <div className="max-w-5xl mx-auto p-6 md:p-12 lg:p-20 relative z-10">
         
@@ -81,7 +78,7 @@ export default function CrmPage() {
         >
 
           {/* CARD 1: GOOGLE API (Destaque Principal) */}
-          <motion.div variants={cardVariants} className="md:col-span-2 rounded-3xl border border-zinc-800 bg-zinc-900/40 backdrop-blur-md p-8 relative overflow-hidden group">
+          <motion.div variants={cardVariants} className="md:col-span-2 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-8 relative overflow-hidden group">
              <div className="absolute top-0 right-0 p-40 bg-blue-500/5 blur-[80px] rounded-full group-hover:bg-blue-500/10 transition-all" />
              
              <div className="flex flex-col md:flex-row gap-8 relative z-10">
@@ -139,7 +136,7 @@ export default function CrmPage() {
           </motion.div>
 
           {/* CARD 2: DATA ENGINEERING */}
-          <motion.div variants={cardVariants} className="p-8 rounded-3xl border border-zinc-800 bg-zinc-900/40 backdrop-blur-md hover:border-purple-500/30 transition-all group">
+          <motion.div variants={cardVariants} className="p-8 rounded-3xl border border-zinc-800 bg-zinc-900/60 hover:border-purple-500/30 transition-all group">
              <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 text-purple-500 border border-purple-500/20">
                <Database size={24} />
              </div>
@@ -164,7 +161,7 @@ export default function CrmPage() {
           </motion.div>
 
           {/* CARD 3: SECURITY & EXTENSION */}
-          <motion.div variants={cardVariants} className="p-8 rounded-3xl border border-zinc-800 bg-zinc-900/40 backdrop-blur-md hover:border-yellow-500/30 transition-all group">
+          <motion.div variants={cardVariants} className="p-8 rounded-3xl border border-zinc-800 bg-zinc-900/60 hover:border-yellow-500/30 transition-all group">
              <div className="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center mb-6 text-yellow-500 border border-yellow-500/20">
                <ShieldCheck size={24} />
              </div>

@@ -33,10 +33,6 @@ export default function AutomacaoPage() {
       
       {/* Background Matrix/Cyberpunk Effects */}
       <div className="fixed inset-0 bg-[linear-gradient(rgba(18,18,18,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-0 pointer-events-none bg-length:100%_4px,6px_100%]"></div>
-      <div className="fixed top-0 left-1/2 w-[800px] h-[500px] bg-green-500/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-      
-      {/* Grid Overlay */}
-      <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none z-0"></div>
 
       <div className="max-w-6xl mx-auto p-6 md:p-12 lg:p-20 relative z-10">
         
@@ -54,12 +50,11 @@ export default function AutomacaoPage() {
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-16 h-16 bg-green-900/20 rounded-none border border-green-500/30 flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-green-500/10 animate-pulse"></div>
               <Bot className="text-green-400 relative z-10" size={32} />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                  <span className="text-green-500/70 text-xs tracking-widest uppercase">System Operational</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold tracking-tighter text-white">
@@ -95,7 +90,6 @@ export default function AutomacaoPage() {
                      <p className="text-xs text-green-500/60 uppercase tracking-wider mt-1">Selenium • Python • PyTest</p>
                    </div>
                 </div>
-                <div className="animate-spin text-green-500/50 duration-[5s]"><RefreshCw size={18}/></div>
              </div>
              
              <div className="p-6 space-y-4">
@@ -112,7 +106,6 @@ export default function AutomacaoPage() {
                   <p>[TEST] Input: "User_X92", Val: 99999.99</p>
                   <p className="text-green-500">[SUCCESS] Quote received in DB (200 OK)</p>
                   <p className="text-green-500">[SUCCESS] Pipeline Integrity Verified.</p>
-                  <p className="animate-pulse">_</p>
                </div>
              </div>
           </motion.div>
@@ -129,7 +122,6 @@ export default function AutomacaoPage() {
                      <p className="text-xs text-green-500/60 uppercase tracking-wider mt-1">Node.js • Webhooks • WPPConnect</p>
                    </div>
                 </div>
-                <AlertCircle size={18} className="text-red-500 animate-pulse"/>
              </div>
              
              <div className="p-6 space-y-4">
@@ -182,7 +174,6 @@ export default function AutomacaoPage() {
 
                {/* Data Processing Visual */}
                <div className="bg-zinc-950 rounded border border-zinc-800 p-4 relative overflow-hidden h-24 flex items-center justify-center">
-                  <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5"></div>
                   <div className="w-full space-y-3">
                      <div className="flex justify-between text-[10px] text-zinc-500 font-mono uppercase">
                         <span>Processing Leads</span>
