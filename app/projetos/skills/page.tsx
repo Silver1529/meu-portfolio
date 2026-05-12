@@ -89,11 +89,11 @@ export default function SkillsPage() {
       color: "text-cyan-400",
       barColor: "bg-cyan-500",
       skills: [
-        {name: "HTML", percent: 100, desc: "Markup, Semântica."},
-        { name: "Next.js 14", percent: 90, desc: "Server Actions, App Router." },
-        { name: "React", percent: 95, desc: "Hooks, Context, Redux." },
+        { name: "Next.js", percent: 92, desc: "App Router, Server Actions, RSC." },
+        { name: "React", percent: 95, desc: "Hooks, Context, Composição." },
+        { name: "TypeScript", percent: 90, desc: "Tipagem estrita, generics." },
         { name: "Tailwind CSS", percent: 98, desc: "Design System, Responsividade." },
-        { name: "TypeScript", percent: 85, desc: "Tipagem estrita, Interfaces." },
+        { name: "HTML / CSS", percent: 100, desc: "Markup semântico, layouts modernos." },
       ]
     },
     {
@@ -102,11 +102,11 @@ export default function SkillsPage() {
       color: "text-green-400",
       barColor: "bg-green-500",
       skills: [
-        { name: "Node.js", percent: 92, desc: "API REST, Express, NestJS." },
-        { name: "Python", percent: 88, desc: "Automação, Pandas, Selenium." },
-        { name: "Google APIs", percent: 80, desc: "Integration, OAuth2." },
-        { name: "Excel.js", percent: 85, desc: "Relatórios automatizados." },
-        {name: "Insomnia", percent: 96, desc: "Testes de API, Debugging."}
+        { name: "NestJS", percent: 90, desc: "Modular, DI, Guards, Pipes." },
+        { name: "Node.js", percent: 92, desc: "API REST, Event Loop." },
+        { name: "Express", percent: 88, desc: "Middlewares, REST clássico." },
+        { name: "Python", percent: 88, desc: "Automação, scripting." },
+        { name: "Selenium", percent: 85, desc: "QA automation, fuzzing." },
       ]
     },
     {
@@ -115,9 +115,9 @@ export default function SkillsPage() {
       color: "text-purple-400",
       barColor: "bg-purple-500",
       skills: [
-        { name: "MongoDB", percent: 90, desc: "Aggregation, Indexing." },
-        { name: "SQL / Postgres", percent: 75, desc: "Relacional, Joins." },
-        { name: "JSON Handling", percent: 95, desc: "Estruturas complexas." },
+        { name: "MongoDB", percent: 92, desc: "Aggregation, Indexing, Mongoose." },
+        { name: "PostgreSQL", percent: 80, desc: "Relacional, queries complexas." },
+        { name: "MySQL", percent: 82, desc: "OLTP, prepared statements." },
       ]
     },
     {
@@ -126,9 +126,9 @@ export default function SkillsPage() {
       color: "text-orange-400",
       barColor: "bg-orange-500",
       skills: [
-        { name: "Docker", percent: 80, desc: "Containers, Compose." },
-        { name: "Git & GitHub", percent: 90, desc: "Flow, Actions, CI/CD." },
-        { name: "VS Code", percent: 100, desc: "Power User, Snippets." },
+        { name: "AWS", percent: 78, desc: "EC2, S3, RDS — deploy & infra." },
+        { name: "Docker", percent: 82, desc: "Containers, Compose." },
+        { name: "Git & GitHub", percent: 92, desc: "Flow, Actions, CI/CD." },
       ]
     }
   ];
