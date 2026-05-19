@@ -10,6 +10,8 @@ import {
 import Link from 'next/link';
 import { motion, type Variants } from 'framer-motion';
 import { useState } from 'react';
+import AboutSection from '@/src/components/AboutSection';
+import MethodologySection from '@/src/components/MethodologySection';
 
 export default function Home() {
   const [copied, setCopied] = useState(false);
@@ -64,12 +66,12 @@ export default function Home() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               Disponível para novos projetos
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-zinc-100 via-zinc-400 to-zinc-600">
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[1.15] pb-2 text-transparent bg-clip-text bg-linear-to-r from-zinc-100 via-zinc-400 to-zinc-600">
               Miguel Bahia
             </h1>
             <p className="text-zinc-400 text-xl max-w-2xl font-light leading-relaxed">
               Engenheiro de Software <span className="text-zinc-100 font-medium">@ Compare Plano de Saúde</span> · Ciência da Computação <span className="text-zinc-100 font-medium">@ UNIP</span>. <br/>
-              Foco em <span className="text-zinc-100 font-medium">automação</span>, <span className="text-zinc-100 font-medium">engenharia de dados</span> e <span className="text-zinc-100 font-medium">produtos escaláveis</span>.
+              Full Stack focado em <span className="text-zinc-100 font-medium">back-end robusto</span> (Node.js · NestJS) e <span className="text-zinc-100 font-medium">SPA/SSR de alta performance</span> (React · Next.js).
             </p>
           </div>
           
@@ -96,6 +98,16 @@ export default function Home() {
             </button>
           </div>
         </motion.header>
+
+        <AboutSection />
+        <MethodologySection />
+
+        <div className="flex items-baseline gap-3 mb-6">
+          <span className="text-xs font-mono text-zinc-500 tracking-widest uppercase">
+            03 · Projetos em Destaque
+          </span>
+          <div className="flex-1 h-px bg-linear-to-r from-zinc-800 to-transparent" />
+        </div>
 
         {/* BENTO GRID */}
         <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-4 gap-6">
