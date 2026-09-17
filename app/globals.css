@@ -1,10 +1,239 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ------------------------------------------------------------------ */
+/* Tokens                                                              */
+/* Escuro é o tema base (identidade do site + animação de entrada).    */
+/* Claro é uma troca completa dos mesmos papéis de cor.                */
+/* ------------------------------------------------------------------ */
 :root {
-  --foreground: 250 250 250;
+  --bg: oklch(0.165 0.012 268);
+  --bg-elev: oklch(0.2 0.012 268);
+  --surface: oklch(0.215 0.012 268);
+  --surface-2: oklch(0.255 0.012 268);
+  --line: oklch(0.31 0.012 268);
+  --line-soft: oklch(0.26 0.012 268);
+  --ink: oklch(0.955 0.004 268);
+  --ink-2: oklch(0.8 0.01 268);
+  --muted: oklch(0.67 0.014 268);
+  --brand: oklch(0.74 0.17 300);
+  --brand-strong: oklch(0.66 0.21 300);
+  --brand-ink: oklch(0.98 0 0);
+  --brand-soft: oklch(0.74 0.17 300 / 0.16);
+  --brand-glow: oklch(0.6 0.22 300 / 0.28);
+  --accent: oklch(0.78 0.155 62);
+  --accent-ink: oklch(0.2 0.03 62);
+  --accent-soft: oklch(0.78 0.155 62 / 0.14);
+  --ok: oklch(0.8 0.15 150);
+  --focus: var(--brand);
+  --selection: oklch(0.74 0.17 300 / 0.35);
+  --shadow: 0 1px 0 oklch(1 0 0 / 0.04) inset, 0 0 0 1px var(--line-soft);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: oklch(0.975 0 0);
+  --bg-elev: oklch(0.99 0 0);
+  --surface: oklch(1 0 0);
+  --surface-2: oklch(0.955 0.003 268);
+  --line: oklch(0.86 0.006 268);
+  --line-soft: oklch(0.91 0.005 268);
+  --ink: oklch(0.19 0.012 268);
+  --ink-2: oklch(0.36 0.012 268);
+  --muted: oklch(0.5 0.014 268);
+  --brand: oklch(0.5 0.22 300);
+  --brand-strong: oklch(0.42 0.22 300);
+  --brand-ink: oklch(0.99 0 0);
+  --brand-soft: oklch(0.5 0.22 300 / 0.12);
+  --brand-glow: oklch(0.6 0.2 300 / 0.16);
+  --accent: oklch(0.56 0.17 48);
+  --accent-ink: oklch(0.99 0 0);
+  --accent-soft: oklch(0.56 0.17 48 / 0.12);
+  --ok: oklch(0.55 0.15 150);
+  --focus: var(--brand);
+  --selection: oklch(0.5 0.22 300 / 0.22);
+  --shadow: 0 1px 2px oklch(0 0 0 / 0.05), 0 0 0 1px var(--line-soft);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elev: var(--bg-elev);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-soft: var(--brand-soft);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+
+  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  color: rgb(var(--foreground));
-  background-color: transparent; /* Importante! */
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  font-variation-settings: "opsz" 14, "wdth" 100;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+  transition: background-color 0.25s var(--ease-out-quart), color 0.25s var(--ease-out-quart);
+}
+
+::selection {
+  background: var(--selection);
+}
+
+h1, h2, h3, h4 {
+  text-wrap: balance;
+  font-variation-settings: "opsz" 96, "wdth" 100;
+}
+
+p, li, dd {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 999px;
+  border: 2px solid var(--bg);
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilitários de composição                                           */
+/* ------------------------------------------------------------------ */
+@utility container-page {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
+}
+
+/* Layout "dossiê": rótulo da seção à esquerda, conteúdo à direita. */
+@utility section-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem 3rem;
+  @media (min-width: 64rem) {
+    grid-template-columns: 11rem minmax(0, 1fr);
+  }
+}
+
+@utility display {
+  font-variation-settings: "opsz" 96, "wdth" 96;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+
+@utility ruled {
+  border-top: 1px solid var(--line-soft);
+}
+
+@utility link-ul {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, currentColor 35%, transparent);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 0.2s var(--ease-out-quart), color 0.2s var(--ease-out-quart);
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Marcador tipográfico usado no nome, no hero e nos títulos de projeto. */
+@utility mark-accent {
+  color: var(--brand);
+}
+
+/* Fundo em grade discreta (papel milimetrado) para o hero. */
+@utility grid-paper {
+  background-image:
+    linear-gradient(to right, var(--line-soft) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line-soft) 1px, transparent 1px);
+  background-size: 2.5rem 2.5rem;
+  mask-image: radial-gradient(ellipse at 30% 0%, black 30%, transparent 75%);
+}
+
+/* Luz roxa difusa atrás do nome no hero: cor, sem gradiente em texto. */
+@utility brand-glow {
+  background: radial-gradient(ellipse 42rem 24rem at 18% 35%, var(--brand-glow), transparent 70%);
+}
+
+/* Traço roxo curto usado como marcador de lista/rótulo. */
+@utility tick-brand {
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 0.75rem;
+    height: 1px;
+    margin-right: 0.6rem;
+    vertical-align: middle;
+    background: var(--brand);
+  }
+}
+
+/* Cursor de terminal piscando (legenda da animação de entrada). */
+@utility caret {
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 0.55em;
+    height: 1.05em;
+    margin-left: 0.15em;
+    vertical-align: -0.15em;
+    background: var(--brand);
+    animation: caret-blink 1s steps(2, start) infinite;
+  }
+}
+
+@keyframes caret-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* Reduz movimento globalmente. Cada animação também checa em JS. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

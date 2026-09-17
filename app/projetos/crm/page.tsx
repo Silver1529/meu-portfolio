@@ -1,206 +1,189 @@
-'use client';
+import type { Metadata } from 'next';
+import ProjectShell, { ProjectSection, FactList, Bullets, Prose } from '@/src/components/project/ProjectShell';
+import { Code, K, S, C, F, DataPanel } from '@/src/components/project/Code';
 
-import { 
-  ArrowLeft, LayoutTemplate, Database, CloudLightning, 
-  Lock, Code2, Cpu, Network, Server, ShieldCheck 
-} from 'lucide-react';
-import Link from 'next/link';
-import { motion, type Variants } from 'framer-motion';
+export const metadata: Metadata = {
+  title: 'CRM Core & Extensões',
+  description:
+    'Núcleo do CRM da Compare Plano de Saúde: back-end Node.js com Mongoose, front-end Next.js 16, integrações Google e Ploomes, extensão de navegador e queries otimizadas.',
+};
+
+const FEATURES = [
+  { term: 'Automações do corretor', desc: 'Modelo de gatilhos e ações, motor de execução e pontos de disparo ao longo do funil, com claiming automático e cron.' },
+  { term: 'Histórico centralizado do cliente', desc: 'HistoryService + ClientTimeline como camada única de eventos, com job de reconstrução do histórico. Detalhado na página Timeline do Cliente.' },
+  { term: 'Painel de negócios', desc: 'Funil e lista em /broker/negocios com correção de N+1, memoização, cache e reforma visual de cards e colunas.' },
+  { term: 'Métricas de retrabalho', desc: 'Metas semanais e diárias por time, fonte idempotente na timeline, endpoints para mestre e líder.' },
+  { term: 'Relatório PME por WhatsApp', desc: 'Módulo próprio com cron, envio manual e comando de chat, integrado ao bot de WhatsApp.' },
+  { term: 'Financeiro', desc: 'Disparo consolidado de e-mails de folha, benefício e vale-transporte com templates configuráveis; bônus coletivo por meta de vendas.' },
+  { term: 'Recuperação de leads perdidos', desc: 'Perda manual por falta de contato dispara e-mail, notifica o consultor e registra na timeline, com deduplicação por evento.' },
+  { term: 'GCLID e conversões offline', desc: 'Leads ganhos, perdidos e propostas exportados para planilhas Google no formato de conversões do Google Ads, com retenção e dedup atômico.' },
+  { term: 'Parceiros e transferências', desc: 'Regras de envio de leads a parceiros com limite diário, bloqueios absolutos e transferência de clientes para qualquer consultor ativo.' },
+];
 
 export default function CrmPage() {
-  
-  // Animações
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.3 }
-    }
-  };
-
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.3 }
-    }
-  };
-
   return (
-    <main className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-blue-500/30 relative overflow-hidden">
-      
-      {/* Background Effects (Tema Azul/Roxo) */}
-      <div className="fixed top-0 right-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[60px] translate-x-1/3 -translate-y-1/4 pointer-events-none" />
-      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-purple-600/5 rounded-full blur-[60px] -translate-x-1/3 translate-y-1/4 pointer-events-none" />
+    <ProjectShell
+      kicker="Sistema interno · Compare Plano de Saúde"
+      title={
+        <>
+          Núcleo CRM &amp; <span className="mark-accent">extensões seguras</span>
+        </>
+      }
+      summary={
+        <>
+          Atuação profunda na engenharia do sistema que a operação comercial da Compare usa todos os dias. Do design de
+          APIs seguras à otimização de queries em bancos NoSQL, focando na eliminação de gargalos operacionais.
+        </>
+      }
+      meta={[
+        { label: 'Contexto', value: 'Compare Plano de Saúde · CRM próprio' },
+        { label: 'Papel', value: 'Engenheiro full stack' },
+        { label: 'Período', value: '2025 – atual' },
+        { label: 'Escala', value: 'Milhares de leads por dia' },
+        { label: 'Qualidade', value: '200+ arquivos de teste (Vitest) · GitLab CI' },
+      ]}
+      tags={[
+        'Node.js',
+        'Express 5',
+        'routing-controllers',
+        'Mongoose',
+        'Redis',
+        'Socket.IO',
+        'Next.js 16',
+        'React Query',
+        'Radix UI',
+        'dnd-kit',
+        'Google APIs',
+        'Google Ads API',
+        'OData / Ploomes',
+        'Anthropic SDK',
+      ]}
+    >
+      <ProjectSection label="Integração" title="Integração Google Cloud">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <Prose>
+            <p>
+              Desenvolvi um <strong>middleware de integração</strong> que elimina a necessidade de trocar de janela. O
+              sistema intercepta leads via API, trata os dados em tempo real e os injeta no contexto da extensão.
+            </p>
+            <Bullets
+              items={[
+                'OAuth 2.0 para autenticação segura sem expor credenciais.',
+                'Sincronização bidirecional (CRM ↔ Planilhas/Drive).',
+                'Redução de 40% no tempo de cadastro de novos leads.',
+                'Conversões offline do Google Ads exportadas para planilhas com order_id, e-mail e telefone em hash SHA-256, valor e GCLID.',
+              ]}
+            />
+          </Prose>
+          <Code title="sync-lead.ts">
+            <K>const</K> <F>syncLead</F> = <K>async</K> (data) =&gt; {'{'}
+            {'\n'}  <K>const</K> token = <K>await</K> googleAuth.<F>getToken</F>();
+            {'\n'}  <C>{'// pipeline de injeção segura'}</C>
+            {'\n'}  <K>await</K> crm.<F>inject</F>({'{'}
+            {'\n'}    client: data.name,
+            {'\n'}    source: <S>{"'Google API'"}</S>,
+            {'\n'}  {'}'});
+            {'\n'}{'}'};
+          </Code>
+        </div>
+      </ProjectSection>
 
-      <div className="max-w-5xl mx-auto p-6 md:p-12 lg:p-20 relative z-10">
-        
-        {/* Nav */}
-        <Link href="/" className="inline-flex items-center gap-2 text-zinc-400 hover:text-white mb-10 transition-colors group">
-          <div className="p-2 rounded-full bg-zinc-900 border border-zinc-800 group-hover:border-zinc-700">
-            <ArrowLeft size={16} />
-          </div>
-          <span className="text-sm font-medium">Voltar para Dashboard</span>
-        </Link>
+      <ProjectSection label="Arquitetura" title="Como o sistema é montado">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <Prose>
+            <p>
+              O back-end é um monólito organizado em pacotes internos: <strong>http</strong> (controllers com
+              routing-controllers e decorators), <strong>application</strong> (casos de uso e scripts operacionais) e{' '}
+              <strong>utils</strong>. Persistência em MongoDB com Mongoose, Redis para cache e para o adapter do Socket.IO
+              em múltiplas instâncias, uploads em GridFS, agendamentos com node-cron e logs estruturados com Winston.
+            </p>
+            <p>
+              O front-end é uma aplicação Next.js 16 (App Router) com React Query, Radix UI, tabelas virtualizadas do
+              TanStack, kanban com dnd-kit, editor de fluxos com React Flow, gráficos em Recharts e server actions
+              tipadas. Tempo real via socket.io-client.
+            </p>
+            <p>
+              Somando os dois repositórios são cerca de <strong>800 commits meus</strong>, uma suíte de mais de 200
+              arquivos de teste em Vitest com MongoDB em memória e pipeline de teste e build no GitLab CI.
+            </p>
+          </Prose>
+          <Code title="estrutura">
+            <C>crm-backend/</C>
+            {'\n'}├── packages/
+            {'\n'}│   ├── <F>http/</F>         <C>controllers</C>
+            {'\n'}│   ├── <F>application/</F>  <C>use-cases</C>
+            {'\n'}│   └── <F>utils/</F>
+            {'\n'}├── docs/              <C>apiDoc</C>
+            {'\n'}└── .gitlab-ci.yml     <C>test → build</C>
+            {'\n'}
+            {'\n'}<C>crm-frontend/</C>
+            {'\n'}└── src/app/           <C>Next.js 16</C>
+          </Code>
+        </div>
+      </ProjectSection>
 
-        {/* Hero Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center border border-blue-500/20 shadow-[0_0_30px_-10px_rgba(59,130,246,0.5)]">
-              <LayoutTemplate className="text-blue-500" size={32} />
-            </div>
-            <div className="px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono tracking-wider uppercase">
-              Core System Architecture
-            </div>
-          </div>
-          
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-            Núcleo CRM & <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-500">Extensões Seguras</span>
-          </h1>
-          <p className="text-zinc-400 text-lg md:text-xl leading-relaxed max-w-3xl">
-            Atuação profunda na engenharia do sistema da <strong>Compare Plano de Saúde</strong>. 
-            Do design de APIs seguras à otimização de queries em bancos NoSQL, focando na eliminação de gargalos operacionais.
+      <ProjectSection label="Dados" title="Engenharia de dados">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <Prose>
+            <p>
+              Arquitetura de banco otimizada para alta performance. Criação de índices compostos e{' '}
+              <strong>aggregation pipelines</strong> no MongoDB para gerar relatórios complexos em milissegundos.
+            </p>
+            <p>
+              Campos de atribuição de marketing (GCLID, UTM, origem) são <strong>cifrados de forma determinística</strong>{' '}
+              por exigência da LGPD, o que ainda permite agrupar e comparar valores sem descriptografar. Três fontes de
+              dados de lead convivem no sistema e cada tela sabe qual delas é autoritativa.
+            </p>
+          </Prose>
+          <DataPanel
+            title="query performance"
+            status={<span className="text-ok">98/100</span>}
+            rows={[
+              { k: 'estratégia', v: 'índices compostos' },
+              { k: 'relatórios', v: 'aggregation pipeline' },
+              { k: 'atribuição', v: 'aes-256-cbc determinístico' },
+              { k: 'testes', v: 'mongodb-memory-server' },
+            ]}
+          />
+        </div>
+      </ProjectSection>
+
+      <ProjectSection label="Extensão" title="Segurança e isolamento">
+        <Prose>
+          <p>
+            Desenvolvimento de extensão React rodando em <strong>contexto isolado (sandboxed)</strong>. Utilização de
+            Shadow DOM para evitar conflitos de estilo e comunicação criptografada com o back-end. É a peça que leva o CRM
+            até onde o corretor está, sem trocar de aba.
           </p>
-        </motion.div>
+        </Prose>
+      </ProjectSection>
 
-        {/* Content Grid */}
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
+      <ProjectSection label="Features" title="O que entreguei no CRM">
+        <FactList items={FEATURES} />
+      </ProjectSection>
 
-          {/* CARD 1: GOOGLE API (Destaque Principal) */}
-          <motion.div variants={cardVariants} className="md:col-span-2 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-8 relative overflow-hidden group">
-             <div className="absolute top-0 right-0 p-40 bg-blue-500/5 blur-[80px] rounded-full group-hover:bg-blue-500/10 transition-all" />
-             
-             <div className="flex flex-col md:flex-row gap-8 relative z-10">
-               <div className="flex-1 space-y-4">
-                 <div className="flex items-center gap-3 text-blue-400 mb-2">
-                   <CloudLightning size={24}/>
-                   <h3 className="text-2xl font-bold text-zinc-100">Integração Google Cloud</h3>
-                 </div>
-                 
-                 <p className="text-zinc-400 leading-relaxed">
-                   Desenvolvi um <strong>Middleware de Integração</strong> que elimina a necessidade de "Alt+Tab". 
-                   O sistema intercepta leads via API, trata os dados em tempo real e os injeta no contexto da extensão.
-                 </p>
-                 
-                 <ul className="space-y-2 mt-4">
-                   {[
-                     "OAuth 2.0 para autenticação segura sem expor credenciais.",
-                     "Sincronização bidirecional (CRM ↔ Planilhas/Drive).",
-                     "Redução de 40% no tempo de cadastro de novos leads."
-                   ].map((item, i) => (
-                     <li key={i} className="flex items-center gap-2 text-sm text-zinc-300">
-                       <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> {item}
-                     </li>
-                   ))}
-                 </ul>
+      <ProjectSection label="Integrações" title="Sistemas que conversam com o CRM">
+        <Bullets
+          items={[
+            'Ploomes, o CRM externo da Compare, via OData v4 através do serviço OData Handler.',
+            'Google Sheets, Calendar e OAuth 2.0 (googleapis) para planilhas de conversão e agenda.',
+            'Google Ads API para mineração de termos e cruzamento de investimento com resultado comercial.',
+            'Bot de WhatsApp multicliente (whatsapp-web.js) para etapas de funil, relatórios e follow-up.',
+            'Anthropic SDK para recursos assistidos por IA.',
+            'Compare Flow recebe webhook de venda e o Bate Ponto compartilha a jornada dos colaboradores.',
+          ]}
+        />
+      </ProjectSection>
 
-                 <div className="flex gap-2 pt-4">
-                   {['GCP', 'Node.js', 'REST API'].map(tag => (
-                     <span key={tag} className="px-3 py-1 bg-blue-500/10 text-blue-300 rounded-lg text-xs border border-blue-500/20 font-mono">
-                       {tag}
-                     </span>
-                   ))}
-                 </div>
-               </div>
-
-               {/* Visual Fake de API */}
-               <div className="flex-1 bg-zinc-950/50 rounded-xl border border-zinc-800/50 p-4 font-mono text-xs text-zinc-500 overflow-hidden shadow-inner">
-                 <div className="flex gap-1.5 mb-3">
-                   <div className="w-2.5 h-2.5 rounded-full bg-zinc-700"></div>
-                   <div className="w-2.5 h-2.5 rounded-full bg-zinc-700"></div>
-                 </div>
-                 <div className="space-y-1">
-                   <p><span className="text-purple-400">const</span> <span className="text-blue-400">syncLead</span> = <span className="text-purple-400">async</span> (data) ={'>'} {'{'}</p>
-                   <p className="pl-4"><span className="text-purple-400">const</span> token = <span className="text-yellow-400">await</span> googleAuth.getToken();</p>
-                   <p className="pl-4"><span className="text-zinc-400">// Secure injection pipeline</span></p>
-                   <p className="pl-4"><span className="text-purple-400">await</span> crm.inject({'{'}</p>
-                   <p className="pl-8">client: data.name,</p>
-                   <p className="pl-8">source: <span className="text-green-400">'Google API'</span></p>
-                   <p className="pl-4">{'}'});</p>
-                   <p className="pl-4 text-green-500">console.log('Sync Complete');</p>
-                   <p>{'}'}</p>
-                 </div>
-               </div>
-             </div>
-          </motion.div>
-
-          {/* CARD 2: DATA ENGINEERING */}
-          <motion.div variants={cardVariants} className="p-8 rounded-3xl border border-zinc-800 bg-zinc-900/60 hover:border-purple-500/30 transition-all group">
-             <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 text-purple-500 border border-purple-500/20">
-               <Database size={24} />
-             </div>
-             
-             <h3 className="text-xl font-bold mb-3 text-zinc-100 group-hover:text-purple-300 transition-colors">Engenharia de Dados</h3>
-             <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-               Arquitetura de banco de dados otimizada para alta performance. Criação de índices compostos e <strong>Aggregation Pipelines</strong> no MongoDB para gerar relatórios complexos em milissegundos.
-             </p>
-
-             <div className="bg-zinc-950 rounded-lg p-3 border border-zinc-800 font-mono text-[10px] text-purple-300/80">
-               <div className="flex justify-between border-b border-zinc-800 pb-2 mb-2">
-                 <span>Query Performance</span>
-                 <span className="text-green-400">98/100</span>
-               </div>
-               <div className="space-y-1">
-                 <div className="w-full bg-zinc-800 h-1.5 rounded-full overflow-hidden">
-                   <div className="bg-purple-500 h-full w-[85%]"></div>
-                 </div>
-                 <span className="text-zinc-500">Indexing Strategy Applied</span>
-               </div>
-             </div>
-          </motion.div>
-
-          {/* CARD 3: SECURITY & EXTENSION */}
-          <motion.div variants={cardVariants} className="p-8 rounded-3xl border border-zinc-800 bg-zinc-900/60 hover:border-yellow-500/30 transition-all group">
-             <div className="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center mb-6 text-yellow-500 border border-yellow-500/20">
-               <ShieldCheck size={24} />
-             </div>
-             
-             <h3 className="text-xl font-bold mb-3 text-zinc-100 group-hover:text-yellow-200 transition-colors">Segurança & Isolation</h3>
-             <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-               Desenvolvimento de extensão React rodando em <strong>Contexto Isolado (Sandboxed)</strong>. Utilização de Shadow DOM para evitar conflitos de estilo e comunicação criptografada com o Backend.
-             </p>
-
-             <div className="flex flex-wrap gap-2">
-                <span className="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 text-yellow-500 rounded text-[10px] border border-yellow-500/20 uppercase font-bold tracking-wider">
-                  <Lock size={10}/> Encrypted
-                </span>
-                <span className="flex items-center gap-1.5 px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-[10px] border border-zinc-700 uppercase font-bold tracking-wider">
-                  <Code2 size={10}/> Shadow DOM
-                </span>
-             </div>
-          </motion.div>
-
-          {/* CARD 4: INFRA & DEVOPS (Extra) */}
-          <motion.div variants={cardVariants} className="md:col-span-2 p-6 rounded-3xl border border-dashed border-zinc-800 bg-zinc-950/30 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-               <div className="p-3 bg-zinc-900 rounded-full text-zinc-400">
-                 <Server size={24} />
-               </div>
-               <div>
-                 <h4 className="font-bold text-zinc-200">Infraestrutura & Deploy</h4>
-                 <p className="text-sm text-zinc-500">Pipelines de CI/CD e Containerização</p>
-               </div>
-            </div>
-            <div className="flex gap-4 opacity-50">
-               <Cpu size={24} className="text-zinc-600"/>
-               <Network size={24} className="text-zinc-600"/>
-               <Database size={24} className="text-zinc-600"/>
-            </div>
-          </motion.div>
-
-        </motion.div>
-      </div>
-    </main>
+      <ProjectSection label="Infra" title="Infraestrutura e deploy">
+        <Prose>
+          <p>
+            Pipelines de CI/CD no GitLab com estágios de teste e build, ambientes de QA e produção separados e
+            containerização onde o serviço pede. Deploy dos serviços Node em VPS e dos front-ends em servidores
+            próprios da empresa.
+          </p>
+        </Prose>
+      </ProjectSection>
+    </ProjectShell>
   );
 }

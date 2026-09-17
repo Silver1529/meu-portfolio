@@ -1,232 +1,210 @@
-'use client';
+import type { Metadata } from 'next';
+import ProjectShell, { ProjectSection, FactList, Bullets, Prose } from '@/src/components/project/ProjectShell';
+import { Code, K, S, C, F, N, DataPanel } from '@/src/components/project/Code';
 
-import { 
-  ArrowLeft, Bot, FileSpreadsheet, MessageCircle, 
-  RefreshCw, ShieldCheck, Terminal, Cpu, Code2, 
-  Binary, AlertCircle 
-} from 'lucide-react';
-import Link from 'next/link';
-import { motion, type Variants } from 'framer-motion';
+export const metadata: Metadata = {
+  title: 'Automação & Bots',
+  description:
+    'Compare AI, QA de formulários com Playwright, boletos, marketing, conteúdo WordPress com IA, Google Ads, scraping de preços e os bots de QA, retenção e ETL.',
+};
+
+const COMPARE_AI = [
+  {
+    term: 'QA de formulários de lead',
+    desc: 'Bot Playwright visita os sites de venda da Compare e preenche e envia formulários reais em três cenários (topo, rodapé, cotação). Sucesso só conta com envio confirmado por resposta de rede ou redirect de obrigado; detecta captcha, formulários em iframe (RD Station, HubSpot, Typeform) e banners de cookies. Fila BullMQ com concorrência 1 e polling real de status na UI.',
+  },
+  {
+    term: 'Boletos Bradesco',
+    desc: 'Automação de cobrança com cadastro de beneficiários, credenciais criptografadas e cron que gera o boleto quinze dias antes do vencimento, lidando com SSO, popups e iframes do internet banking.',
+  },
+  {
+    term: 'Marketing: Meta e TikTok',
+    desc: 'Publicação de vídeos no Facebook e Instagram via Graph API e no TikTok, com múltiplas contas, normalização de mídia com ffmpeg, métricas de engajamento e modo revisor para auditoria.',
+  },
+  {
+    term: 'Conteúdo WordPress com IA',
+    desc: 'Gera posts e páginas seguindo SEO, GEO e legibilidade Yoast, monta o layout no Elementor via REST e mantém uma fila de pautas que se reabastece sozinha, com lock atômico e cron de saúde.',
+  },
+  {
+    term: 'Google Ads',
+    desc: 'Mineração de termos de pesquisa via API oficial com sugestão de palavra-chave ou negativa por regras e IA. Página de cruzamento CRM × Google Ads com investimento, receita, ROAS, CPA e cobertura de atribuição, consumindo um endpoint dedicado do CRM protegido por Basic Auth.',
+  },
+];
 
 export default function AutomacaoPage() {
-
-  // Tipagem correta para evitar erros
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 }
-    }
-  };
-
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { type: "spring", stiffness: 50 }
-    }
-  };
-
   return (
-    <main className="min-h-screen bg-black text-zinc-100 selection:bg-green-500/50 relative overflow-hidden font-mono">
-      
-      {/* Background Matrix/Cyberpunk Effects */}
-      <div className="fixed inset-0 bg-[linear-gradient(rgba(18,18,18,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-0 pointer-events-none bg-length:100%_4px,6px_100%]"></div>
-
-      <div className="max-w-6xl mx-auto p-6 md:p-12 lg:p-20 relative z-10">
-        
-        {/* Header Navigation */}
-        <Link href="/" className="inline-flex items-center gap-2 text-green-500/80 hover:text-green-400 mb-10 transition-colors group tracking-widest uppercase text-xs">
-          <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-          {'<'} System.Exit / Return to Root
-        </Link>
-
-        {/* Hero Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          className="mb-16 border-b border-green-900/30 pb-10"
-        >
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-green-900/20 rounded-none border border-green-500/30 flex items-center justify-center relative overflow-hidden">
-              <Bot className="text-green-400 relative z-10" size={32} />
-            </div>
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                 <span className="text-green-500/70 text-xs tracking-widest uppercase">System Operational</span>
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tighter text-white">
-                Automação & <span className="text-green-500">Inteligência de Bots</span>
-              </h1>
-            </div>
-          </div>
-          
-          <p className="text-zinc-400 text-lg leading-relaxed max-w-3xl border-l-2 border-green-500/50 pl-6">
-            Ecossistema de scripts autônomos para <span className="text-green-300">QA Testing</span>, <span className="text-green-300">ETL de Dados</span> e <span className="text-green-300">Recuperação de Receita</span>.
-            <br className="hidden md:block" />
-            Substituindo processos manuais por código Python e Node.js de alta eficiência.
+    <ProjectShell
+      kicker="Compare AI · QA · scraping · bots"
+      title={
+        <>
+          Automação &amp; <span className="mark-accent">bots</span>
+        </>
+      }
+      summary={
+        <>
+          Ecossistema de scripts e serviços autônomos para QA, ETL de dados, marketing e recuperação de receita.
+          Substituindo processos manuais por código Python e Node.js de alta eficiência, hoje concentrado num painel
+          interno com filas e workers.
+        </>
+      }
+      meta={[
+        { label: 'Contexto', value: 'Compare Plano de Saúde · operações e marketing' },
+        { label: 'Papel', value: 'Autor principal do painel (~75% dos commits)' },
+        { label: 'Período', value: '2025 – atual' },
+        { label: 'Execução', value: 'Workers BullMQ · Redis · Playwright headless' },
+      ]}
+      tags={[
+        'Next.js 16',
+        'BullMQ',
+        'Redis',
+        'Playwright',
+        'MongoDB',
+        'NextAuth',
+        'Google Ads API',
+        'Meta Graph API',
+        'WordPress REST',
+        'Anthropic SDK',
+        'OpenAI',
+        'Python',
+        'Selenium',
+        'ExcelJS',
+        'Pandas',
+      ]}
+    >
+      <ProjectSection label="Compare AI" title="O painel interno de automação">
+        <Prose>
+          <p>
+            <strong>Compare AI</strong> consolida num só lugar as automações da equipe de marketing, operações, SEO e
+            liderança. Cada módulo roda como worker numa fila BullMQ sobre Redis; a interface só enfileira e acompanha.
+            Isso tirou o Playwright de dentro das server actions e deu ao usuário um status verdadeiro do que foi feito.
           </p>
-        </motion.div>
+        </Prose>
+        <div className="mt-8">
+          <FactList items={COMPARE_AI} />
+        </div>
+      </ProjectSection>
 
-        {/* Grid de Projetos */}
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
-        >
+      <ProjectSection label="Scraping" title="Preços e rede credenciada">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <Prose>
+            <p>
+              Um serviço separado coleta preços e rede credenciada das operadoras no painel do corretor e grava no
+              MongoDB. O dashboard Next.js dispara a coleta, acompanha o progresso ao vivo por{' '}
+              <strong>Server-Sent Events</strong> e mostra as tabelas extraídas com o diff de preços entre coletas.
+            </p>
+            <p>
+              Roda em instância única sob PM2, com lock por PID, checkpoint para retomar de onde parou, histórico de
+              execuções e agendamento. Sessão protegida por JWT em cookie httpOnly e migrações versionadas.
+            </p>
+          </Prose>
+          <DataPanel
+            title="GET /api/scraper/stream"
+            status={<span className="text-ok">running</span>}
+            rows={[
+              { k: 'operadoras', v: '12 / 18' },
+              { k: 'tabelas', v: '1.284' },
+              { k: 'diff', v: '+37 · −12' },
+              { k: 'checkpoint', v: 'ok' },
+            ]}
+          />
+        </div>
+      </ProjectSection>
 
-          {/* CARD 1: QA BOT (Terminal Style) */}
-          <motion.div variants={cardVariants} className="bg-zinc-900/50 border border-green-500/20 p-0 rounded-xl overflow-hidden group hover:border-green-500/50 transition-all">
-             <div className="p-6 border-b border-green-500/10 bg-black/40 flex justify-between items-start">
-                <div className="flex gap-4">
-                   <div className="p-3 bg-green-500/10 rounded text-green-500 border border-green-500/20">
-                     <ShieldCheck size={24} />
-                   </div>
-                   <div>
-                     <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors">QA & Fuzzing Bot</h3>
-                     <p className="text-xs text-green-500/60 uppercase tracking-wider mt-1">Selenium • Python • PyTest</p>
-                   </div>
-                </div>
-             </div>
-             
-             <div className="p-6 space-y-4">
-               <p className="text-zinc-400 text-sm leading-relaxed">
-                 Bot de teste de estresse (Fuzzing) que bombardeia o sistema com formulários aleatórios para garantir a integridade do banco de dados e prevenir falhas em produção.
-               </p>
+      <ProjectSection label="QA" title="QA & fuzzing bot">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <Prose>
+            <p>
+              Bot de teste de estresse (<strong>fuzzing</strong>) que bombardeia o sistema com formulários aleatórios
+              para garantir a integridade do banco de dados e prevenir falhas em produção. Selenium, Python e PyTest.
+            </p>
+          </Prose>
+          <Code title="terminal">
+            <S>$ pytest run_stress_test.py --threads=4</S>
+            {'\n'}[INFO] Spawning 4 headless browsers...
+            {'\n'}[TEST] Case #492: Random Data Injection
+            {'\n'}[TEST] Input: {'"User_X92"'}, Val: <N>99999.99</N>
+            {'\n'}<S>[SUCCESS]</S> Quote received in DB (200 OK)
+            {'\n'}<S>[SUCCESS]</S> Pipeline Integrity Verified.
+          </Code>
+        </div>
+      </ProjectSection>
 
-               {/* Terminal Visual */}
-               <div className="bg-black rounded border border-zinc-800 p-4 font-mono text-xs text-zinc-500 h-32 overflow-hidden relative">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-green-500/50 shadow-[0_0_10px_#22c55e]"></div>
-                  <p className="text-green-400">$ pytest run_stress_test.py --threads=4</p>
-                  <p className="mt-2">[INFO] Spawning 4 headless browsers...</p>
-                  <p>[TEST] Case #492: <span className="text-blue-400">Random Data Injection</span></p>
-                  <p>[TEST] Input: "User_X92", Val: 99999.99</p>
-                  <p className="text-green-500">[SUCCESS] Quote received in DB (200 OK)</p>
-                  <p className="text-green-500">[SUCCESS] Pipeline Integrity Verified.</p>
-               </div>
-             </div>
-          </motion.div>
+      <ProjectSection label="Retenção" title="Alerta de retenção">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <Prose>
+            <p>
+              Sistema de monitoramento em tempo real. Detecta perda de clientes de alto valor (churn) e dispara
+              instantaneamente um alerta personalizado com dados estratégicos para o gestor. Node.js, webhooks e
+              WPPConnect.
+            </p>
+          </Prose>
+          <Code title="monitor-churn.ts">
+            <K>const</K> <F>monitorChurn</F> = (client) =&gt; {'{'}
+            {'\n'}  <K>if</K> (client.value &gt; <N>5000</N> &amp;&amp; client.status === <S>{"'LOST'"}</S>) {'{'}
+            {'\n'}    <C>{'// disparo imediato'}</C>
+            {'\n'}    WhatsApp.<F>send</F>({'{'}
+            {'\n'}      priority: <S>{"'HIGH'"}</S>,
+            {'\n'}      msg: <S>{'`ALERTA: ${client.name} cancelou!`'}</S>,
+            {'\n'}    {'}'});
+            {'\n'}  {'}'}
+            {'\n'}{'}'};
+          </Code>
+        </div>
+      </ProjectSection>
 
-          {/* CARD 2: WHATSAPP RETENTION (Logic Visual) */}
-          <motion.div variants={cardVariants} className="bg-zinc-900/50 border border-green-500/20 p-0 rounded-xl overflow-hidden group hover:border-green-500/50 transition-all">
-             <div className="p-6 border-b border-green-500/10 bg-black/40 flex justify-between items-start">
-                <div className="flex gap-4">
-                   <div className="p-3 bg-green-500/10 rounded text-green-500 border border-green-500/20">
-                     <MessageCircle size={24} />
-                   </div>
-                   <div>
-                     <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors">Alerta de Retenção</h3>
-                     <p className="text-xs text-green-500/60 uppercase tracking-wider mt-1">Node.js • Webhooks • WPPConnect</p>
-                   </div>
-                </div>
-             </div>
-             
-             <div className="p-6 space-y-4">
-               <p className="text-zinc-400 text-sm leading-relaxed">
-                 Sistema de monitoramento em tempo real. Detecta perda de clientes de alto valor (Churn) e dispara instantaneamente um alerta personalizado com dados estratégicos para o gestor.
-               </p>
+      <ProjectSection label="ETL" title="Pipeline de dados & BI">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <Prose>
+            <p>
+              Script ETL (Extract, Transform, Load) que processa dados brutos do CRM, calcula métricas de MRR (receita
+              mensal recorrente) e churn diário, exportando relatórios complexos via <strong>ExcelJS</strong>. Pandas e
+              aggregation pipelines do MongoDB no meio do caminho.
+            </p>
+          </Prose>
+          <DataPanel
+            title="etl · leads"
+            status={<span className="text-ok">100%</span>}
+            rows={[
+              { k: 'extract', v: 'CRM · MongoDB' },
+              { k: 'transform', v: 'MRR · churn diário' },
+              { k: 'load', v: 'relatorio.xlsx' },
+              { k: 'status', v: 'done' },
+            ]}
+          />
+        </div>
+      </ProjectSection>
 
-               {/* Code Snippet Visual */}
-               <div className="bg-[#1e1e1e] rounded border border-zinc-800 p-4 font-mono text-xs overflow-hidden relative">
-                  <div className="flex gap-1.5 mb-3 opacity-50">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-                  </div>
-                  <div className="text-gray-300">
-                    <p><span className="text-purple-400">const</span> <span className="text-blue-400">monitorChurn</span> = (client) ={'>'} {'{'}</p>
-                    <p className="pl-4"><span className="text-purple-400">if</span> (client.value {'>'} <span className="text-green-300">5000</span> && client.status === <span className="text-orange-300">'LOST'</span>) {'{'}</p>
-                    <p className="pl-8 text-zinc-500">// Disparo Imediato</p>
-                    <p className="pl-8"><span className="text-blue-400">WhatsApp</span>.send({'{'}</p>
-                    <p className="pl-12">priority: <span className="text-red-400">'HIGH'</span>,</p>
-                    {/* AQUI ESTAVA O ERRO - Corrigido com aspas simples envolvendo o template string */}
-                    <p className="pl-12">msg: <span className="text-orange-300">{'`ALERTA: ${client.name} cancelou!`'}</span></p>
-                    <p className="pl-8">{'}'});</p>
-                    <p className="pl-4">{'}'}</p>
-                    <p>{'}'}</p>
-                  </div>
-               </div>
-             </div>
-          </motion.div>
+      <ProjectSection label="CLI" title="Gerador automático de SPA">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <Prose>
+            <p>
+              Ferramenta CLI para desenvolvedores. Utiliza templates pré-configurados para gerar a estrutura completa de
+              uma landing page integrada ao CRM, economizando horas de setup manual de rotas e componentes. A mesma ideia
+              evoluiu para as landing pages de captação (Einstein, Fleury, profissões), que compartilham tokens, formulário
+              de cotação e integração com o OData Handler.
+            </p>
+          </Prose>
+          <Code title="terminal">
+            <S>$ npm run gen:spa {'"Nova Campanha"'}</S>
+            {'\n'}src/
+            {'\n'}├── pages/nova-campanha/
+            {'\n'}│   └── <F>index.tsx</F>        <C>(generated)</C>
+            {'\n'}└── components/
+            {'\n'}    └── <F>Form.tsx</F>         <C>(injected)</C>
+          </Code>
+        </div>
+      </ProjectSection>
 
-          {/* CARD 3: ETL & EXCEL (Data Stream) */}
-          <motion.div variants={cardVariants} className="bg-zinc-900/50 border border-green-500/20 p-0 rounded-xl overflow-hidden group hover:border-green-500/50 transition-all">
-             <div className="p-6 border-b border-green-500/10 bg-black/40 flex justify-between items-start">
-                <div className="flex gap-4">
-                   <div className="p-3 bg-green-500/10 rounded text-green-500 border border-green-500/20">
-                     <FileSpreadsheet size={24} />
-                   </div>
-                   <div>
-                     <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors">Pipeline de Dados & BI</h3>
-                     <p className="text-xs text-green-500/60 uppercase tracking-wider mt-1">ExcelJS • Pandas • Aggregation</p>
-                   </div>
-                </div>
-                <Binary size={18} className="text-green-500/50"/>
-             </div>
-             
-             <div className="p-6 space-y-4">
-               <p className="text-zinc-400 text-sm leading-relaxed">
-                 Script ETL (Extract, Transform, Load) que processa dados brutos do CRM, calcula métricas de MRR (Receita Mensal) e Churn Diário, exportando relatórios complexos via <strong>Excel.js</strong>.
-               </p>
-
-               {/* Data Processing Visual */}
-               <div className="bg-zinc-950 rounded border border-zinc-800 p-4 relative overflow-hidden h-24 flex items-center justify-center">
-                  <div className="w-full space-y-3">
-                     <div className="flex justify-between text-[10px] text-zinc-500 font-mono uppercase">
-                        <span>Processing Leads</span>
-                        <span className="text-green-400">100%</span>
-                     </div>
-                     <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
-                        <div className="h-full bg-green-500 w-full shadow-[0_0_10px_#22c55e]"></div>
-                     </div>
-                     <div className="flex justify-between text-[10px] font-mono">
-                        <span className="text-zinc-600">Generating .xlsx...</span>
-                        <span className="text-green-400">Done</span>
-                     </div>
-                  </div>
-               </div>
-             </div>
-          </motion.div>
-
-          {/* CARD 4: SPA GENERATOR (Blueprint) */}
-          <motion.div variants={cardVariants} className="bg-zinc-900/50 border border-green-500/20 p-0 rounded-xl overflow-hidden group hover:border-green-500/50 transition-all">
-             <div className="p-6 border-b border-green-500/10 bg-black/40 flex justify-between items-start">
-                <div className="flex gap-4">
-                   <div className="p-3 bg-green-500/10 rounded text-green-500 border border-green-500/20">
-                     <Code2 size={24} />
-                   </div>
-                   <div>
-                     <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors">Gerador Automático de SPA</h3>
-                     <p className="text-xs text-green-500/60 uppercase tracking-wider mt-1">AST • Scaffolding • React</p>
-                   </div>
-                </div>
-                <Cpu size={18} className="text-green-500/50"/>
-             </div>
-             
-             <div className="p-6 space-y-4">
-               <p className="text-zinc-400 text-sm leading-relaxed">
-                 Ferramenta CLI para desenvolvedores. Utiliza templates pré-configurados para gerar a estrutura completa de uma Landing Page integrada ao CRM, economizando horas de setup manual de rotas e componentes.
-               </p>
-
-               {/* Folder Structure Visual */}
-               <div className="bg-[#1e1e1e] rounded border border-zinc-800 p-4 font-mono text-xs text-zinc-400">
-                  <p className="text-green-400 mb-2">$ npm run gen:spa "Nova Campanha"</p>
-                  <div className="pl-2 border-l border-zinc-700 space-y-1">
-                     <p>📂 src/</p>
-                     <p className="pl-4">📂 pages/nova-campanha/</p>
-                     <p className="pl-8 text-green-300">📄 index.tsx <span className="text-zinc-600 text-[10px] ml-2">(Generated)</span></p>
-                     <p className="pl-4">📂 components/</p>
-                     <p className="pl-8 text-green-300">📄 Form.tsx <span className="text-zinc-600 text-[10px] ml-2">(Injected)</span></p>
-                  </div>
-               </div>
-             </div>
-          </motion.div>
-
-        </motion.div>
-      </div>
-    </main>
+      <ProjectSection label="Lições" title="O que esses bots me ensinaram">
+        <Bullets
+          items={[
+            'Sucesso precisa de evidência: um cenário que roda sem exceção não é um formulário enviado. Confirmar pela rede ou pelo redirect mudou a confiabilidade do QA.',
+            'Automação de navegador em servidor exige headless por ambiente, esperas inteligentes em vez de timeouts fixos e varredura de iframes.',
+            'Filas com concorrência 1 e polling honesto na UI valem mais que um modal otimista de "finalizado com sucesso".',
+            'Credenciais nunca vão para o código: o incidente que tiramos de um seed antigo virou rotação de senha e regra de time.',
+          ]}
+        />
+      </ProjectSection>
+    </ProjectShell>
   );
 }
